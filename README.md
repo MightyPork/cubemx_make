@@ -7,7 +7,7 @@ Sources, libraries etc. are generated and updated using the Cube MX too, which i
 
 Open the `.ioc` file with CubeMX, set up your processor and export "for TrueStudio".
 
-Then run `update_mf.sh`.
+Then run `update_mf.sh`. Please remember than the `.gitignore` ignores all source folders, so change it accordingly.
 
 Project updating
 ----------------
