@@ -23,7 +23,7 @@ a correct one from a WS4 project is used instead - it's stored in `MFGEN`.
 
 The linker script (Memory regions in particular) will be different for different chip: **If you changed the processor**, then you must export for WS4 IDE and copy the linker script from there into `MFGEN/good_linkscript.ld`. Blame STM.
 
-*If CubeMX generates correct linker script, then you should comment out the LD replacement from `update_mf.sh`.
+*If CubeMX generates correct linker script for you*, then you should comment out the LD replacement from `update_mf.sh`.
 
 **To build a Makefile, run `update_mf.sh`.**
 
