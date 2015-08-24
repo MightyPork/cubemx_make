@@ -39,6 +39,20 @@ SZ = arm-none-eabi-size
 HEX = $$(CP) -O ihex
 BIN = $$(CP) -O binary -S
 
+
+
+### FLASH CONFIG ###
+
+# hex file used in flash
+HEX_FILE = $$(BUILD_DIR)/$$(TARGET).hex
+
+# iface
+OOCD = openocd
+OOCD_INTERFACE = stlink-v2
+OOCD_BOARD = stm32f3discovery
+
+
+
 #######################################
 # CFLAGS
 #######################################
@@ -111,15 +125,17 @@ clean:
 #######################################
 -include $$(shell mkdir .dep 2>/dev/null) $$(wildcard .dep/*)
 
+
 #######################################
 # flash
 #######################################
 
-OOCD = openocd
-OOCD_INTERFACE = stlink-v2
-OOCD_BOARD = stm32f3discovery
-
-#flash:
-#	TODO
+flash:
+	$$(OOCD) -f interface/$$(OOCD_INTERFACE).cfg \
+	    -f board/$$(OOCD_BOARD).cfg \
+	    -c "init" -c "reset init" \
+	    -c "flash write_image erase "$$(HEX_FILE) \
+	    -c "reset" \
+	    -c "shutdown"
 
 # *** EOF ***
