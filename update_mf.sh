@@ -25,6 +25,10 @@ find Inc -type f -print0 | xargs -0 dos2unix -q
 echo "Drivers..."
 find Drivers -type f -print0 | xargs -0 dos2unix -q
 
+echo -e "\e[0;32mRemoving crap...\e[0m"
+rm .mxproject
+rm -rf build
+
 echo -e "\e[0;32mDone.\e[0m"
 
 
