@@ -1,39 +1,54 @@
-STM32 CubeMX / GCC project base
-===============================
+# STM32 CubeMX / GCC project base
 
 This is a template for developing STM32 code using the GCC ARM toolchain.
 
-Sources, libraries etc. are generated and updated using the Cube MX too, which is a cross-platform Java application (despite being named `.exe`). You can run it using `java -jar`.
+Sources & libraries are generated and updated using the Cube MX tool. To run it, use
+`java -jar STM32CubeMX.exe` (not kidding, it's really just a renamed `.jar`).
 
-The `.ioc` file is a CubeMX save file, currently configured for STM32DiscoveryF3.
+The `.ioc` file is a CubeMX save file. It can be opened with CubeMX to change pin layout etc.
 
-Set up your project in CubeMX, save it and copy the `.ioc` file here (or save *into this folder*, if that works).
 
-Then run `update_mf.sh`. Please remember than the `.gitignore` ignores all source folders, so change it accordingly.
+## Initialization
 
-Project updating
-----------------
+- Open the `.ioc` file with CubeMX and generate the project for "TrueSTUDIO".
+- Run `update_mf.sh`.
 
-- The drivers and init code can be updated using CubeMX. Care must be taken not to overwrite user code.
-- When exporting, set the IDE to "TrueStudio".
-- The `MFGEN` folder contains utils for building a Makefile.
+Please remember than the `.gitignore` ignores all source folders, so change it accordingly.
 
-Since the TrueStudio project contains an empty LinkerScript (CubeMX bug?),
-a correct one from a WS4 project is used instead - it's stored in `MFGEN`.
 
-The linker script (Memory regions in particular) will be different for different chip: **If you changed the processor**, then you must export for WS4 IDE and copy the linker script from there into `MFGEN/good_linkscript.ld`. Blame STM.
+## Project updating
 
-*If CubeMX generates correct linker script for you*, then you should comment out the LD replacement from `update_mf.sh`.
+- The drivers and init code can be updated using CubeMX (as "TrueStudio" project, details below).
+- Take care not to overwrite your code: CubeMX can preserve stuff between special marker comments,
+  make sure it's enabled in the project settings.
+- **To build a Makefile, run `update_mf.sh`.**
 
-**To build a Makefile, run `update_mf.sh`.**
 
-Makefile patching
------------------
+## Changing processor
 
-Some changes to the Makefile can be done by editing the template in `MFGEN`.
+- Configure CubeMX project and save it to this folder (Or somewhere else and copy the files).
+- Generate a "TrueSTUDIO" project from it.
+- Check the linker script in `TrueSTUDIO/cubemx_make Configuration/STM32F303VC_FLASH.ld`. If it's empty, see below.
+- If CubeMX generated correct LD file, then comment out the LD replacement in `update_mf.sh`.
+- Run `update_mf.sh`
 
-However, some errors have to be fixed using a patch:
+### Broken linker script
 
-    diff -Nau Makefile Makefile_fixed > ./MFGEN/fix_mf.patch
+- Due to a CubeMX bug, your TrueStudio project may have empty linker script.
+- To fix that, export it as WS4STM project and use linker script from there.
+- Move the correct linker script into `MFGEN/good_linkscript.ld`.
+
+
+## Makefile patching
+
+Some changes to the Makefile can be done by editing the template in `MFGEN/CubeMX2Makefile.tpl`.
+
+However, some errors have to be fixed using a patch.
+
+Making a patch:
+
+- Comment out the patch application in `update_mf.sh` and run it to generate clean Makefile.
+- Copy it, fix changes and generate a patch:
+  `diff -Nau Makefile Makefile_fixed > ./MFGEN/fix_mf.patch`
 
 The patch is applied by `update_mf.sh`.
