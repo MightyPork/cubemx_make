@@ -5,7 +5,7 @@
 ######################################
 # target
 ######################################
-TARGET = discovery4make
+TARGET = cubemx_make
 
 ######################################
 # building variables

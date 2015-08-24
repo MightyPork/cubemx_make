@@ -6,7 +6,9 @@
 # fi
 
 echo -e "\e[0;32mInstalling working linker script...\e[0m"
-cp "./MFGEN/good_linkscript.ld" "./TrueSTUDIO/discovery4make Configuration/STM32F303VC_FLASH.ld"
+
+x=$(ls TrueSTUDIO/ -1)
+cp "./MFGEN/good_linkscript.ld" "./TrueSTUDIO/$x/STM32F303VC_FLASH.ld"
 
 echo -e "\e[0;32mGenerate Makefile...\e[0m"
 ./MFGEN/CubeMX2Makefile.py .
