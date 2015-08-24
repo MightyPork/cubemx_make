@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # if [ -e Makefile ]; then
 # 	echo -e "\e[0;32mBacking up original Makefile...\e[0m"
 # 	cp Makefile Makefile.orig
@@ -26,8 +28,7 @@ echo "Drivers..."
 find Drivers -type f -print0 | xargs -0 dos2unix -q
 
 echo -e "\e[0;32mRemoving crap...\e[0m"
-rm .mxproject
-rm -rf build
+[ -e .mxproject ] && rm .mxproject
 
 echo -e "\e[0;32mDone.\e[0m"
 
