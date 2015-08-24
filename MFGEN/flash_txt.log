@@ -1,0 +1,40 @@
+Using ../../../../../libopencm3/ path to library
+  FLASH   fancyblink.hex
+openocd -f interface/stlink-v2.cfg \
+	    -f board/stm32f3discovery.cfg \
+	    -c "init" -c "reset init" \
+	    -c "flash write_image erase fancyblink.hex" \
+	    -c "reset" \
+	    -c "shutdown" 
+Open On-Chip Debugger 0.9.0 (2015-05-19-13:50)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Warn : Interface already configured, ignoring
+Error: already specified hl_layout stlink
+adapter speed: 1000 kHz
+adapter_nsrst_delay: 100
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+none separate
+srst_only separate srst_nogate srst_open_drain connect_deassert_srst
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : Unable to match requested speed 1000 kHz, using 950 kHz
+Info : clock speed 950 kHz
+Info : STLINK v2 JTAG v16 API v2 SWIM v0 VID 0x0483 PID 0x3748
+Info : using stlink api v2
+Info : Target voltage: 2.903019
+Info : stm32f3x.cpu: hardware has 6 breakpoints, 4 watchpoints
+adapter speed: 1000 kHz
+target state: halted
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x08000430 msp: 0x2000a000
+adapter speed: 8000 kHz
+auto erase enabled
+Info : device id = 0x10016422
+Info : flash size = 256kbytes
+target state: halted
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000003a msp: 0x2000a000
+wrote 2048 bytes from file fancyblink.hex in 0.194654s (10.275 KiB/s)
+adapter speed: 1000 kHz
+shutdown command invoked

@@ -16,7 +16,7 @@ DEBUG = 1
 OPT = -O0
 
 #######################################
-# pathes
+# paths
 #######################################
 # source path
 # Build path
@@ -25,7 +25,7 @@ BUILD_DIR = build
 ######################################
 # source
 ######################################
-$C_SOURCES  
+$C_SOURCES
 $ASM_SOURCES
 
 #######################################
@@ -38,7 +38,7 @@ AR = arm-none-eabi-ar
 SZ = arm-none-eabi-size
 HEX = $$(CP) -O ihex
 BIN = $$(CP) -O binary -S
- 
+
 #######################################
 # CFLAGS
 #######################################
@@ -54,6 +54,7 @@ CFLAGS = $MCU $$(C_DEFS) $$(C_INCLUDES) $$(OPT) -Wall -fdata-sections -ffunction
 ifeq ($$(DEBUG), 1)
 CFLAGS += -g -gdwarf-2
 endif
+
 # Generate dependency information
 CFLAGS += -MD -MP -MF .dep/$$(@F).d
 
@@ -80,7 +81,7 @@ vpath %.c $$(sort $$(dir $$(C_SOURCES)))
 OBJECTS += $$(addprefix $$(BUILD_DIR)/,$$(notdir $$(ASM_SOURCES:.s=.o)))
 vpath %.s $$(sort $$(dir $$(ASM_SOURCES)))
 
-$$(BUILD_DIR)/%.o: %.c Makefile | $$(BUILD_DIR) 
+$$(BUILD_DIR)/%.o: %.c Makefile | $$(BUILD_DIR)
 	$$(CC) -c $$(CFLAGS) -Wa,-a,-ad,-alms=$$(BUILD_DIR)/$$(notdir $$(<:.c=.lst)) $$< -o $$@
 
 $$(BUILD_DIR)/%.o: %.s Makefile | $$(BUILD_DIR)
@@ -92,22 +93,33 @@ $$(BUILD_DIR)/$$(TARGET).elf: $$(OBJECTS) Makefile
 
 $$(BUILD_DIR)/%.hex: $$(BUILD_DIR)/%.elf | $$(BUILD_DIR)
 	$$(HEX) $$< $$@
-	
+
 $$(BUILD_DIR)/%.bin: $$(BUILD_DIR)/%.elf | $$(BUILD_DIR)
-	$$(BIN) $$< $$@	
-	
+	$$(BIN) $$< $$@
+
 $$(BUILD_DIR):
-	mkdir -p $$@		
+	mkdir -p $$@
 
 #######################################
 # clean up
 #######################################
 clean:
 	-rm -fR .dep $$(BUILD_DIR)
-  
+
 #######################################
 # dependencies
 #######################################
 -include $$(shell mkdir .dep 2>/dev/null) $$(wildcard .dep/*)
+
+#######################################
+# flash
+#######################################
+
+OOCD = openocd
+OOCD_INTERFACE = stlink-v2
+OOCD_BOARD = stm32f3discovery
+
+#flash:
+#	TODO
 
 # *** EOF ***
