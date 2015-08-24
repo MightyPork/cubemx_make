@@ -1,4 +1,7 @@
 build/
 .dep/
-Src/Backup/
-Inc/Backup/
+Src/
+Inc/
+Drivers/
+TrueSTUDIO/
+.mxproject
