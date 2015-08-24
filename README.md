@@ -5,7 +5,9 @@ This is a template for developing STM32 code using the GCC ARM toolchain.
 
 Sources, libraries etc. are generated and updated using the Cube MX too, which is a cross-platform Java application (despite being named `.exe`). You can run it using `java -jar`.
 
-Open the `.ioc` file with CubeMX, set up your processor and export "for TrueStudio".
+The `.ioc` file is a CubeMX save file, currently configured for STM32DiscoveryF3.
+
+Set up your project in CubeMX, save it and copy the `.ioc` file here (or save *into this folder*, if that works).
 
 Then run `update_mf.sh`. Please remember than the `.gitignore` ignores all source folders, so change it accordingly.
 
