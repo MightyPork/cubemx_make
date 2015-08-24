@@ -3,10 +3,11 @@ STM32 CubeMX / GCC project base
 
 This is a template for developing STM32 code using the GCC ARM toolchain.
 
-Sources, libraries etc are generated and updated using the Cube MX too,
-which is a cross-platform Java application (despite being named `.exe`).
+Sources, libraries etc. are generated and updated using the Cube MX too, which is a cross-platform Java application (despite being named `.exe`). You can run it using `java -jar`.
 
-You can run it using `java -jar`.
+The project is intended for STM32 Discovery board, so the default Discovery files are included.
+
+Feel free to change the target in CubeMX after opening the `.ioc` project file.
 
 Project updating
 ----------------
